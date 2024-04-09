@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Print image</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header>
+
+    <div style="float: right; overflow: hidden;">
+      <label for="image_uploads">Add Image</label><input type='file' id="image_uploads" accept="image/*" />
+      <button id="print">Print</button>
+    </div>
+
+    <h1>
+      &#128444;&#65039; -> &#128424;&#65039;
+      <!-- Fast Pic Print -->
+      <!-- Image Print Setup -->
+      <!-- Simple Faz -->
+      <!-- Page to Print -->
+      <!-- Print JPG, PNG, GIF, BMP, SVG + -->
+      <!-- PrintPict -->
+      <!-- FireLayout -->
+    </h1>
+
+
+  </header>
+
+  <main>
+
+    <div id="page"></div>
+
+    <div id="controls">
+
+      <div id="page-toolbar">
+        <h2>Page</h2>
+        <p>
+          Page size:
+          <select id="size">
+            <option value="A4">A4 (21 x 29.7 cm)</option>
+            <option value="A3">A3 (29,7 x 42 cm)</option>
+          </select>
+        </p>
+        <p>
+          Margin: <button id="margin-normal">Default</button> <button id="margin-narrow">Min</button>
+        </p>
+        <p>Align:
+          <button id="left">Left</button> 
+          <button id="center">Center</button> 
+          <button id="right">Right</button>
+          <br>
+          <button id="top">Top</button> 
+          <button id="middle">Middle</button> 
+          <button id="bottom">Bottom</button>
+        </p>
+      </div>
+
+      <div id="image-toolbar">
+        <h2>Selected Image</h2>
+        <p>
+          W: <input type="text" id="width" size="4">
+          H: <input type="text" id="height" size="4">
+          <button id="resize">Apply</button>
+        </p>
+        <p> 
+          <button id="size4x4">4x4</button>
+          <button id="size10x15">10x15</button>
+          <button id="size13x18">13x18</button>
+          <button id="size15x21">15x21</button>
+        </p>
+        <p> 
+          <button id="autoWidth">Auto Adjust</button>
+          <!-- <button id="autoHeight">Max height</button> -->
+          <button id="restore">Restore Size</button>
+        </p>
+        <p>
+          <button id="rotate">Rotate</button> 
+          <!-- <button id="flip">Flip</button> -->
+          <button id="duplicate">Duplicate</button>
+          <button id="remove">Remove</button>
+        </p>
+      </div>
+
+    </div>
+
+    <div id="editor"></div>
+
+    <!-- <div id="ads">
+      Ads Space
+    </div> -->
+
+  </main>
+
+
+  <script type="text/javascript" src="js/page.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
