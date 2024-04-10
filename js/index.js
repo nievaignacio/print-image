@@ -49,6 +49,7 @@ document.querySelector('#align').onclick = (e) => {
 document.querySelector('input[type="file"]').addEventListener('change', function () {
     if (this.files && this.files[0]) {
         page.addImage(URL.createObjectURL(this.files[0]));
+        console.log(this.files[0]);
         this.value = '';
     }
 });

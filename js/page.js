@@ -190,7 +190,7 @@ class Page {
             this.extendImg(imgClon);
             imgClon.scale = img.scale;
             imgClon.mode = img.mode;
-            imgClon.degree = ima.degree;
+            imgClon.degree = img.degree;
             imgClon.orientation = img.orientation;
             imgClon.flip = img.flip;
         }

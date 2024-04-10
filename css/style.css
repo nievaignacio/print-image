@@ -87,7 +87,7 @@ header label{
 
 
 #align td{
-    border: 1px solid #ccc;
+    border: 1px solid #bbb;
     width:25px;
     height: 25px;
     background-color: white;
@@ -95,7 +95,7 @@ header label{
 
 #align td:hover{
     cursor:pointer;
-    background-color: #ccc;
+    background-color: #bbb;
 }
 
 #align td.selected{
