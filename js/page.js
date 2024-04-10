@@ -11,8 +11,6 @@ class Page{
         console.log(this.pageSizes.find(size => size.size == "A4"));
 
         this.selector = ref;
-        
-
 
         this.pageStyles = document.createElement('style');
         //this.pageStyles.textContent ="@media print { @page { size: A4; margin: 10%; }}";
@@ -90,9 +88,10 @@ class Page{
 
     extendImg(img){ // # private method not support firefox
 
+        img.scale = "Original"
         img.degree = 0;
         img.orientation = 0;
-        img.scale = 1;
+        img.flip = 1;
 
         img.onload = () => {
         }
@@ -141,6 +140,32 @@ class Page{
             
             img.style.margin = marginV+'px '+marginH+'px '; 
             
+        }
+
+        img.setScale = (value) =>{
+            switch (value) {
+                case 'Original':
+                    img.restore();
+                    break;
+                case 'auto':
+                    img.autoWidth();
+                    break;
+                case '4x4':
+                    img.resize(4, 4);
+                    break;
+                case '10x15':
+                    img.getHeight() < img.getWidth()? img.resize(15, 10): img.resize(10,15);
+                    break;
+                case '13x18':
+                     img.getHeight() < img.getWidth()? img.resize(18, 13):img.resize(13, 18);
+                    break;
+                case '15x21':
+                     img.getHeight() < img.getWidth()? img.resize(21, 15):img.resize(15, 21);
+                    break;
+                default:
+                    img.restore();
+            }
+            img.scale = value;
         }
     
         img.duplicate = () =>{
@@ -216,8 +241,8 @@ class Page{
         }
 
         img.flip = () =>{
-            img.scale *= -1; 
-            img.style.transform = 'scaleX(' + img.scale + ')';
+            img.flip *= -1; 
+            img.style.transform = 'scale(' + img.flip + ')';
         }
 
 

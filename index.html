@@ -19,7 +19,7 @@
 
     <h1> &#128424;&#65039; PrintPreset
       <!-- &#128444;&#65039; -> &#128424;&#65039; -->
-     
+
       <!-- Fast Pic Print -->
       <!-- Image Print Setup -->
       <!-- Simple Faz -->
@@ -43,18 +43,10 @@
 
         <div style="float:right;">
           <p>Alignment:</p>
-          <!-- <button id="left">Left</button> 
-          <button id="center">Center</button> 
-          <button id="right">Right</button>
-          <br>
-          <button id="top">Top</button> 
-          <button id="middle">Middle</button> 
-          <button id="bottom">Bottom</button> -->
-
           <table id="align">
             <tr>
               <td class="top left selected"></td>
-              <td class="top center" ></td>
+              <td class="top center"></td>
               <td class="top right"></td>
             </tr>
             <tr>
@@ -68,7 +60,7 @@
               <td class="bottom right"></td>
             </tr>
           </table>
-</p>
+          </p>
         </div>
 
         <p>
@@ -79,11 +71,11 @@
           </select>
         </p>
         <p>
-          Margin: <br>
-          <button id="margin-normal">Default</button> 
+          Margin:
+          <button id="margin-normal">Default</button>
           <button id="margin-narrow">Min</button>
         </p>
-       
+
       </div>
 
       <div id="image-toolbar">
@@ -91,27 +83,31 @@
         <p>
           W: <input type="text" id="width" size="4">
           H: <input type="text" id="height" size="4">
-           cm
+          cm
           <!-- <button id="resize">Apply</button> -->
         </p>
         <p>Scale:
           <select id="scale">
+            <option disabled="disabled">Custom</option>
             <option>Original</option>
-            <!-- <option>Custom</option> -->
             <option value="auto">Auto Adjust</option>
-     
+
             <optgroup label="Photogaphy">
               <option>4x4</option>
               <option>10x15</option>
               <option>13x18</option>
               <option>15x21</option>
             </optgroup>
-            
+            <optgroup label="Printing">
+              <option>Business card</option>
+              <option>Postal</option>
+            </optgroup>
+
           </select>
         </p>
 
         <p>
-          <button id="rotate">Rotate</button> 
+          <button id="rotate">Rotate</button>
           <!-- <button id="flip">Flip</button> -->
           <button id="duplicate">Duplicate</button>
           <button id="remove">Remove</button>

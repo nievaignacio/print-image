@@ -6,7 +6,6 @@ window.onresize = () => {
     page.zoom();
 }
 
-
 //page size
 
 document.querySelector('#size').addEventListener('change', function () {
@@ -30,17 +29,17 @@ document.querySelector('#margin-narrow').onclick = () => {
 
 document.querySelector('#align').onclick = (e) => {
 
-    if(e.target.nodeName == "TD"){
+    if (e.target.nodeName == "TD") {
         document.querySelector('#align .selected').classList.remove("selected");
         e.target.classList.add("selected");
-    } 
+    }
 
-    if(e.target.classList.contains("top")) page.setVerticalAlign('top')
-    if(e.target.classList.contains("middle")) page.setVerticalAlign('middle')
-    if(e.target.classList.contains("bottom")) page.setVerticalAlign('bottom')
-    if(e.target.classList.contains("left")) page.setAlign('left')
-    if(e.target.classList.contains("center")) page.setAlign('center')
-    if(e.target.classList.contains("right")) page.setAlign('right')
+    if (e.target.classList.contains("top")) page.setVerticalAlign('top')
+    if (e.target.classList.contains("middle")) page.setVerticalAlign('middle')
+    if (e.target.classList.contains("bottom")) page.setVerticalAlign('bottom')
+    if (e.target.classList.contains("left")) page.setAlign('left')
+    if (e.target.classList.contains("center")) page.setAlign('center')
+    if (e.target.classList.contains("right")) page.setAlign('right')
 
 }
 
@@ -58,13 +57,13 @@ document.ondragover = (e) => {
     e.preventDefault()
 };
 
-document.querySelector('#page').ondrop =  (e) => {
+document.querySelector('#page').ondrop = (e) => {
     console.log(e.dataTransfer.files[0].name);
     e.stopPropagation();
     e.preventDefault();
     document.querySelector('input[type="file"]').files = e.dataTransfer.files;
 
-   //  document.querySelector('input[type="file"]').dispatchEvent(new Event("change")); // colision with images drop 
+    //  document.querySelector('input[type="file"]').dispatchEvent(new Event("change")); // colision with images drop 
 
 }
 
@@ -76,6 +75,7 @@ page.area.addEventListener('selected', function () {  // custom event
         document.querySelector('#image-toolbar').setAttribute("style", "display:block;");
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
+        document.querySelector('#scale').value = page.selectedImage.scale;
     }
 });
 
@@ -92,7 +92,7 @@ document.onclick = (e) => {
 
 // resize
 
-document.querySelector('#width').onkeyup= (event) => {
+document.querySelector('#width').onkeyup = (event) => {
     if (event.keyCode === 13) {
         w = document.querySelector('#width').value;
         h = document.querySelector('#height').value;
@@ -103,7 +103,7 @@ document.querySelector('#width').onkeyup= (event) => {
     }
 }
 
-document.querySelector('#height').onkeyup= (event) => {
+document.querySelector('#height').onkeyup = (event) => {
     if (event.keyCode === 13) {
         w = document.querySelector('#width').value;
         h = document.querySelector('#height').value;
@@ -115,32 +115,10 @@ document.querySelector('#height').onkeyup= (event) => {
 }
 
 document.querySelector('#scale').addEventListener('change', function () {
-    switch (this.value) {
-        case 'Original':
-            page.selectedImage.restore();
-        break;
-        case 'auto':
-            page.selectedImage.autoWidth();
-        break;
-        case '4x4':
-            page.selectedImage.resize(4, 4);
-          break;
-          case '10x15':
-            page.selectedImage.resize(10, 15);
-          break;
-          case '13x18':
-            page.selectedImage.resize(13, 18);
-          break;
-          case '15x21':
-            page.selectedImage.resize(15, 21);
-          break;
-        default:
-          console.log(`Sorry, we are out of ${this.value}.`);
-      }
-
-      document.querySelector('#width').value = page.selectedImage.getWidth();
-      document.querySelector('#height').value = page.selectedImage.getHeight();
-    
+    page.selectedImage.setScale(this.value);
+    document.querySelector('#width').value = page.selectedImage.getWidth();
+    document.querySelector('#height').value = page.selectedImage.getHeight();
+    document.querySelector('#scale').value = page.selectedImage.scale;
 });
 
 
@@ -172,8 +150,8 @@ document.querySelector('#remove').onclick = () => {
 
 document.onkeydown = (event) => {
     if (event.key == "Delete" || event.key == "Backspace") {
-        if(event.target.nodeName != "INPUT")
-        page.selectedImage.delete();
+        if (event.target.nodeName != "INPUT")
+            page.selectedImage.delete();
     }
 }
 
