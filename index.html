@@ -94,17 +94,22 @@
            cm
           <!-- <button id="resize">Apply</button> -->
         </p>
-        <p> 
-          <button id="size4x4">4x4</button>
-          <button id="size10x15">10x15</button>
-          <button id="size13x18">13x18</button>
-          <button id="size15x21">15x21</button>
+        <p>Scale:
+          <select id="scale">
+            <option>Original</option>
+            <!-- <option>Custom</option> -->
+            <option value="auto">Auto Adjust</option>
+     
+            <optgroup label="Photogaphy">
+              <option>4x4</option>
+              <option>10x15</option>
+              <option>13x18</option>
+              <option>15x21</option>
+            </optgroup>
+            
+          </select>
         </p>
-        <p> 
-          <button id="autoWidth">Auto Adjust</button>
-          <!-- <button id="autoHeight">Max height</button> -->
-          <button id="restore">Original Size</button>
-        </p>
+
         <p>
           <button id="rotate">Rotate</button> 
           <!-- <button id="flip">Flip</button> -->

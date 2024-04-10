@@ -48,7 +48,6 @@ document.querySelector('#align').onclick = (e) => {
 //add image
 
 document.querySelector('input[type="file"]').addEventListener('change', function () {
-    console.log("Uploading...");
     if (this.files && this.files[0]) {
         page.addImage(URL.createObjectURL(this.files[0]));
         this.value = '';
@@ -100,6 +99,7 @@ document.querySelector('#width').onkeyup= (event) => {
         page.selectedImage.resize(w, h);
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
+        document.querySelector('#scale').value = "Custom";
     }
 }
 
@@ -110,51 +110,38 @@ document.querySelector('#height').onkeyup= (event) => {
         page.selectedImage.resize(w, h);
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
+        document.querySelector('#scale').value = "Custom";
     }
 }
 
-// document.querySelector('#resize').onclick = () => {
-//     w = document.querySelector('#width').value;
-//     h = document.querySelector('#height').value;
-//     page.selectedImage.resize(w, h);
-//     document.querySelector('#width').value = page.selectedImage.getWidth();
-//     document.querySelector('#height').value = page.selectedImage.getHeight();
-// }
+document.querySelector('#scale').addEventListener('change', function () {
+    switch (this.value) {
+        case 'Original':
+            page.selectedImage.restore();
+        break;
+        case 'auto':
+            page.selectedImage.autoWidth();
+        break;
+        case '4x4':
+            page.selectedImage.resize(4, 4);
+          break;
+          case '10x15':
+            page.selectedImage.resize(10, 15);
+          break;
+          case '13x18':
+            page.selectedImage.resize(13, 18);
+          break;
+          case '15x21':
+            page.selectedImage.resize(15, 21);
+          break;
+        default:
+          console.log(`Sorry, we are out of ${this.value}.`);
+      }
 
-document.querySelector('#size4x4').onclick = () => {
-    page.selectedImage.resize(4, 4)
-    document.querySelector('#width').value = page.selectedImage.getWidth();
-    document.querySelector('#height').value = page.selectedImage.getHeight();
-}
-
-document.querySelector('#size10x15').onclick = () => {
-    page.selectedImage.resize(10, 15)
-    document.querySelector('#width').value = page.selectedImage.getWidth();
-    document.querySelector('#height').value = page.selectedImage.getHeight();
-}
-document.querySelector('#size13x18').onclick = () => {
-    page.selectedImage.resize(13, 18)
-    document.querySelector('#width').value = page.selectedImage.getWidth();
-    document.querySelector('#height').value = page.selectedImage.getHeight();
-}
-document.querySelector('#size15x21').onclick = () => {
-    page.selectedImage.resize(15, 21)
-    document.querySelector('#width').value = page.selectedImage.getWidth();
-    document.querySelector('#height').value = page.selectedImage.getHeight();
-}
-
-document.querySelector('#autoWidth').onclick = () => {
-    page.selectedImage.autoWidth();
-}
-
-// document.querySelector('#autoHeight').onclick = () => {
-//     page.selectedImage.autoHeight();
-// }
-
-document.querySelector('#restore').onclick = () => {
-    page.selectedImage.restore();
-}
-
+      document.querySelector('#width').value = page.selectedImage.getWidth();
+      document.querySelector('#height').value = page.selectedImage.getHeight();
+    
+});
 
 
 //rotate
