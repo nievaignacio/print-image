@@ -186,6 +186,11 @@ class Page {
             imgClon.classList.remove("selected");
             this.area.content.insertBefore(imgClon, img);
             this.extendImg(imgClon);
+            imgClon.scale = img.scale;
+            imgClon.mode = img.mode;
+            imgClon.degree = ima.degree;
+            imgClon.orientation = img.orientation;
+            imgClon.flip = img.flip;
         }
 
         img.getWidth = () => { // return width at cm
