@@ -89,6 +89,7 @@ class Page {
     extendImg(img) { // # private method not support firefox
 
         img.scale = "Original"
+        img.mode = "fill"
         img.degree = 0;
         img.orientation = 0;
         img.flip = 1;
@@ -172,6 +173,11 @@ class Page {
                     img.restore();
             }
             img.scale = value;
+        }
+
+        img.setMode = (value) => {
+            img.mode = value;
+            img.style.objectFit = img.mode;
         }
 
         img.duplicate = () => {

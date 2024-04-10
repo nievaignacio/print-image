@@ -76,6 +76,7 @@ page.area.addEventListener('selected', function () {  // custom event
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
         document.querySelector('#scale').value = page.selectedImage.scale;
+        document.querySelector('#mode').value = page.selectedImage.mode;
     }
 });
 
@@ -121,6 +122,15 @@ document.querySelector('#scale').addEventListener('change', function () {
     document.querySelector('#scale').value = page.selectedImage.scale;
 });
 
+//rotate
+
+document.querySelector('#mode').addEventListener('change', function () {
+    page.selectedImage.setMode(this.value);
+    document.querySelector('#width').value = page.selectedImage.getWidth();
+    document.querySelector('#height').value = page.selectedImage.getHeight();
+    document.querySelector('#mode').value = page.selectedImage.mode;
+});
+
 
 //rotate
 
@@ -146,12 +156,14 @@ document.querySelector('#duplicate').onclick = () => {
 
 document.querySelector('#remove').onclick = () => {
     page.selectedImage.delete();
+    document.querySelector('#image-toolbar').setAttribute("style", "display:none;");
 }
 
 document.onkeydown = (event) => {
     if (event.key == "Delete" || event.key == "Backspace") {
         if (event.target.nodeName != "INPUT")
             page.selectedImage.delete();
+            document.querySelector('#image-toolbar').setAttribute("style", "display:none;");
     }
 }
 
