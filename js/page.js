@@ -83,10 +83,14 @@ class Page {
         img.src = src;
         this.area.content.appendChild(img);
         img.setAttribute('draggable', true);
-        this.extendImg(img);
+        this.extendImg(img , {
+            scale: "auto",
+            mode: "fill",
+            degree: 0,
+        });
     }
 
-    extendImg(img) { // # private method not support firefox
+    extendImg(img, options = {}) { // # private method not support firefox
 
         img.scale = "Original"
         img.mode = "fill"
@@ -95,6 +99,7 @@ class Page {
         img.flip = 1;
 
         img.onload = () => {
+            img.setScale(options.scale);
         }
 
         img.onclick = () => {
@@ -187,12 +192,13 @@ class Page {
             var imgClon = img.cloneNode(true) // Clona the element with its classes
             imgClon.classList.remove("selected");
             this.area.content.insertBefore(imgClon, img);
-            this.extendImg(imgClon);
-            imgClon.scale = img.scale;
-            imgClon.mode = img.mode;
-            imgClon.degree = img.degree;
-            imgClon.orientation = img.orientation;
-            imgClon.flip = img.flip;
+            this.extendImg(imgClon , {
+                scale : img.scale,
+                mode : img.mode,
+                degree : img.degree,
+                orientation : img.orientation,
+                flip : img.flip,
+            });
         }
 
         img.getWidth = () => { // return width at cm

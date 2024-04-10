@@ -164,9 +164,10 @@ document.querySelector('#remove').onclick = () => {
 
 document.onkeydown = (event) => {
     if (event.key == "Delete" || event.key == "Backspace") {
-        if (event.target.nodeName != "INPUT")
+        if (event.target.nodeName != "INPUT"){
             page.selectedImage.delete();
             document.querySelector('#image-toolbar').setAttribute("style", "display:none;");
+        }
     }
 }
 

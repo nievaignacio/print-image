@@ -227,7 +227,7 @@ img.selected {
         margin: 0 !important;
     }
 
-    .selected {
+    img.selected {
         border: none;
         opacity: 1;
     }
