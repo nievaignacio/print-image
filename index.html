@@ -86,7 +86,18 @@
           cm
           <!-- <button id="resize">Apply</button> -->
         </p>
-        <p>Scale:
+
+        <div style="float:right;">
+          <p>Mode:<br>
+          <select id="mode">
+            <option value="fill">Fill</option>
+            <option value="cover">Cover</option>
+            <option value="none">Crop</option>
+          </select>
+          </p>
+        </div>
+
+        <p>Scale:<br>
           <select id="scale">
             <option disabled="disabled">Custom</option>
             <option>Original</option>
@@ -106,13 +117,7 @@
           </select>
         </p>
 
-        <p>Mode:
-          <select id="mode">
-            <option value="fill">Fill</option>
-            <option value="cover">Cover</option>
-            <option value="none">Crop</option>
-          </select>
-        </p>
+        
 
         <p>
           <button id="rotate">Rotate</button>

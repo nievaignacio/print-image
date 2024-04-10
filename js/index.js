@@ -98,6 +98,7 @@ document.querySelector('#width').onkeyup = (event) => {
         w = document.querySelector('#width').value;
         h = document.querySelector('#height').value;
         page.selectedImage.resize(w, h);
+        page.selectedImage.setScale("Custom");
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
         document.querySelector('#scale').value = "Custom";
@@ -109,6 +110,7 @@ document.querySelector('#height').onkeyup = (event) => {
         w = document.querySelector('#width').value;
         h = document.querySelector('#height').value;
         page.selectedImage.resize(w, h);
+        page.selectedImage.setScale("Custom");
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
         document.querySelector('#scale').value = "Custom";

@@ -169,6 +169,8 @@ class Page {
                 case 'postal':
                     img.getHeight() < img.getWidth() ? img.resize(14.8, 10.5) : img.resize(10.5, 14.8);
                     break;
+                case 'Custom':
+                    break;
                 default:
                     img.restore();
             }
