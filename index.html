@@ -40,17 +40,9 @@
 
       <div id="page-toolbar">
         <h2>Page</h2>
-        <p>
-          Page size:
-          <select id="size">
-            <option value="A4">A4 (21 x 29.7 cm)</option>
-            <option value="A3">A3 (29,7 x 42 cm)</option>
-          </select>
-        </p>
-        <p>
-          Margin: <button id="margin-normal">Default</button> <button id="margin-narrow">Min</button>
-        </p>
-        <p>Align:
+
+        <div style="float:right;">
+          <p>Alignment:</p>
           <!-- <button id="left">Left</button> 
           <button id="center">Center</button> 
           <button id="right">Right</button>
@@ -60,24 +52,38 @@
           <button id="bottom">Bottom</button> -->
 
           <table id="align">
-            <tr id="top">
-              <td class="left selected"></td>
-              <td class="center" ></td>
-              <td class="right"></td>
+            <tr>
+              <td class="top left selected"></td>
+              <td class="top center" ></td>
+              <td class="top right"></td>
             </tr>
-            <tr id="middle">
-              <td class="left"></td>
-              <td class="center"></td>
-              <td class="right"></td>
+            <tr>
+              <td class="middle left"></td>
+              <td class="middle center"></td>
+              <td class="middle right"></td>
             </tr>
-            <tr id="bottom">
-              <td class="left"></td>
-              <td class="center"></td>
-              <td class="right"></td>
+            <tr>
+              <td class="bottom left"></td>
+              <td class="bottom center"></td>
+              <td class="bottom right"></td>
             </tr>
           </table>
+</p>
+        </div>
 
+        <p>
+          Page size:<br>
+          <select id="size">
+            <option value="A4">A4 (21 x 29.7 cm)</option>
+            <option value="A3">A3 (29,7 x 42 cm)</option>
+          </select>
         </p>
+        <p>
+          Margin: <br>
+          <button id="margin-normal">Default</button> 
+          <button id="margin-narrow">Min</button>
+        </p>
+       
       </div>
 
       <div id="image-toolbar">
@@ -85,7 +91,8 @@
         <p>
           W: <input type="text" id="width" size="4">
           H: <input type="text" id="height" size="4">
-          <button id="resize">Apply</button>
+           cm
+          <!-- <button id="resize">Apply</button> -->
         </p>
         <p> 
           <button id="size4x4">4x4</button>
@@ -96,7 +103,7 @@
         <p> 
           <button id="autoWidth">Auto Adjust</button>
           <!-- <button id="autoHeight">Max height</button> -->
-          <button id="restore">Restore Size</button>
+          <button id="restore">Original Size</button>
         </p>
         <p>
           <button id="rotate">Rotate</button> 
