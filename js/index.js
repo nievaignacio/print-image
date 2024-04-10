@@ -27,28 +27,36 @@ document.querySelector('#margin-narrow').onclick = () => {
 
 //page align
 
-document.querySelector('#center').onclick = () => {
-    page.setAlign('center')
-}
-document.querySelector('#left').onclick = () => {
 
-    page.setAlign('left')
-}
-document.querySelector('#right').onclick = () => {
-    page.setAlign('right')
+document.querySelector('#align').onclick = (e) => {
+    //console.log(e.target)
+     document.querySelector('#align .selected').classList.remove("selected");
+     e.target.classList.add("selected");
 }
 
-document.querySelector('#top').onclick = () => {
-    page.setVerticalAlign('top')
-}
+// document.querySelector('#middle').onclick = () => {
+//     page.setVerticalAlign('middle')
+// }
 
-document.querySelector('#middle').onclick = () => {
-    page.setVerticalAlign('middle')
-}
+// document.querySelector('#bottom').onclick = () => {
+//     page.setVerticalAlign('bottom')
+// }
 
-document.querySelector('#bottom').onclick = () => {
-    page.setVerticalAlign('bottom')
-}
+// document.querySelector('.center').onclick = () => {
+//     page.setAlign('center')
+// }
+// document.querySelector('.left').onclick = () => {
+//     page.setAlign('left')
+// }
+// document.querySelector('.right').onclick = () => {
+//     page.setAlign('right')
+// }
+
+// document.querySelector('#top').onclick = () => {
+//     page.setVerticalAlign('top')
+// }
+
+
 
 //add image
 

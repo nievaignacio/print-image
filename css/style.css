@@ -84,6 +84,24 @@ header label{
     display: none;
 }
 
+
+
+#align td{
+    border: 1px solid #ccc;
+    width:15px;
+    height: 15px;
+    background-color: white;
+}
+
+#align td:hover{
+    cursor:pointer;
+    background-color: #ccc;
+}
+
+#align td.selected{
+    background-color: red;
+}
+
 button,
 label,
 input,
@@ -145,15 +163,15 @@ img {
     position: relative;
 }
 
-.selected {
+img.selected {
      border: 3px  solid greenyellow; 
 }
 
-.selected::after{
+/* .selected::after{
     content:"<p>hola</p>";
     position: absolute;
     bottom: 10px;
-}
+} */
 
 .rotate {
     rotate: 90deg;
