@@ -17,8 +17,9 @@
       <button id="print">Print</button>
     </div>
 
-    <h1> &#128424;&#65039; PrintPreset
-      <!-- &#128444;&#65039; -> &#128424;&#65039; -->
+     <h1> 
+      <!--&#128424;&#65039; PrintPreset -->
+      &#128444;&#65039; -&gt; &#128424;&#65039;
 
       <!-- Fast Pic Print -->
       <!-- Image Print Setup -->
@@ -37,6 +38,7 @@
     <div id="page"></div>
 
     <div id="controls">
+      
 
       <div id="page-toolbar">
         <h2>Page</h2>
@@ -71,18 +73,20 @@
           </select>
         </p>
         <p>
-          Margin:
+          Margin:<br>
           <button id="margin-normal">Default</button>
-          <button id="margin-narrow">Min</button>
+          <button id="margin-narrow">Minimal</button>
         </p>
+
+        <!-- <p>Spacing: <input type="number" size="4" id="spacing" step=".1"/> cm</p> -->
 
       </div>
 
       <div id="image-toolbar">
         <h2>Selected Image</h2>
         <p>
-          W: <input type="text" id="width" size="4">
-          H: <input type="text" id="height" size="4">
+          W: <input type="number" id="width" size="4">
+          H: <input type="number" id="height" size="4">
           cm
           <!-- <button id="resize">Apply</button> -->
         </p>

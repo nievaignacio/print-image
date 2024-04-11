@@ -28,8 +28,14 @@ class Page {
         this.area.content.id = "content";
         this.area.appendChild(this.area.content);
 
+        
+
         this.setSize("A4");
 
+    }
+
+    setSpacing(value){
+        // this.area.content.querySelector("img").style.border = value +"mm solid #fff;";
     }
 
 
@@ -100,6 +106,7 @@ class Page {
 
         img.onload = () => {
             img.setScale(options.scale);
+            this.setMargin()
         }
 
         img.onclick = () => {
@@ -147,6 +154,7 @@ class Page {
             img.style.margin = marginV + 'px ' + marginH + 'px ';
 
         }
+
 
         img.setScale = (value) => {
             switch (value) {
@@ -274,6 +282,8 @@ class Page {
             img.style.margin = marginV + 'px ' + marginH + 'px ';
 
             img.degree += degree;
+            if(img.degree == 360) img.degree = 0;
+
             img.style.transform = 'rotate(' + img.degree + 'deg)';
 
             if (img.scale == "auto") {
