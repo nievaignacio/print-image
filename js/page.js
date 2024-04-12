@@ -98,15 +98,16 @@ class Page {
 
     extendImg(img, options = {}) { // # private method not support firefox
 
-        img.scale = "Original"
-        img.mode = "fill"
-        img.degree = 0;
-        img.orientation = 0;
-        img.flip = 1;
+        img.scale = options.scale || "Original"
+        img.mode = options.mode || "fill"
+        img.degree = options.degree || 0;
+        img.orientation = options.orientation || 0;
+        img.flip = options.flip || 1;
 
         img.onload = () => {
             img.setScale(options.scale);
-            this.setMargin()
+            //this.setMargin();
+           // img.setMargin();
         }
 
         img.onclick = () => {
@@ -132,6 +133,20 @@ class Page {
             item.target.classList.remove('drag-sort-active');
         }
 
+        img.setMargin = () =>{
+
+            if (img.orientation) {
+                img.orientation = 1;
+                var marginV = (img.width - img.height) / 2;
+                var marginH = (img.height - img.width) / 2;
+            } else {
+                img.orientation = 0;
+                var marginV = marginH = 0;
+            }
+
+            img.style.margin = marginV + 'px ' + marginH + 'px ';
+        }
+
         img.resize = (w, h) => {
             // console.log("resize ",img.src);
             if (img.orientation) {
@@ -142,16 +157,7 @@ class Page {
                 img.style.height = h * 10 + "mm";
             }
 
-            if (img.orientation) {
-                img.orientation = 1;
-                var marginV = (img.width - img.height) / 2;;
-                var marginH = (img.height - img.width) / 2;;
-            } else {
-                img.orientation = 0;
-                var marginV = marginH = 0;
-            }
-
-            img.style.margin = marginV + 'px ' + marginH + 'px ';
+            img.setMargin();
 
         }
 
@@ -233,17 +239,16 @@ class Page {
                 img.style.width = this.area.offsetHeight + "px";
                 img.style.height = "auto"
 
-                var marginV = (img.width - img.height) / 2;
-                var marginH = (img.height - img.width) / 2;
             } else {
 
                 img.style.width = "100%";
                 img.style.height = "auto";
 
-                var marginV = marginH = 0;
+                // var marginV = marginH = 0;
             }
 
-            img.style.margin = marginV + 'px ' + marginH + 'px ';
+            img.setMargin();
+ //img.style.margin = marginV + 'px ' + marginH + 'px ';
         }
 
         img.restore = () => { // restore
@@ -251,14 +256,7 @@ class Page {
             img.style.width = "inherit";
             img.style.height = "inherit";
 
-            if (img.orientation) {
-                var marginV = (img.width - img.height) / 2;
-                var marginH = (img.height - img.width) / 2;
-            } else {
-                var marginV = marginH = 0;
-            }
-
-            img.style.margin = marginV + 'px ' + marginH + 'px ';
+            img.setMargin();
 
         }
 
@@ -270,16 +268,10 @@ class Page {
 
         img.rotate = (degree) => {
 
-            if ((img.degree % 180) == 0) {
-                img.orientation = 1;
-                var marginV = (img.width - img.height) / 2;;
-                var marginH = (img.height - img.width) / 2;;
-            } else {
-                img.orientation = 0;
-                var marginV = marginH = 0;
-            }
+            (img.degree % 180) == 0? img.orientation = 1 : img.orientation = 0;
 
-            img.style.margin = marginV + 'px ' + marginH + 'px ';
+           img.setMargin();
+
 
             img.degree += degree;
             if(img.degree == 360) img.degree = 0;
