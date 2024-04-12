@@ -53,7 +53,7 @@ document.querySelector('#align').onclick = (e) => {
 
 document.querySelector('input[type="file"]').addEventListener('change', function () {
     if (this.files && this.files[0]) {
-        page.addImage(URL.createObjectURL(this.files[0]));
+        page.addImage({src:URL.createObjectURL(this.files[0])});
         console.log(this.files[0]);
         this.value = '';
     }
@@ -155,7 +155,17 @@ document.querySelector('#rotate').onclick = () => {
 //duplicate
 
 document.querySelector('#duplicate').onclick = () => {
-    page.selectedImage.duplicate();
+    //page.selectedImage.duplicate();
+    page.addImage({ 
+        src: page.selectedImage.src,
+        scale : page.selectedImage.scale,
+        mode : page.selectedImage.mode,
+        degree : page.selectedImage.degree,
+        orientation : page.selectedImage.orientation,
+        flip : page.selectedImage.flip,
+        height: page.selectedImage.getHeight(),
+        width: page.selectedImage.getWidth(),
+     });
 }
 
 //remove

@@ -32,6 +32,8 @@ class Page {
 
     }
 
+    
+
 
     zoom() {
         var zoom = this.pxTocm(window.innerHeight - 160) / this.size.height;
@@ -78,22 +80,77 @@ class Page {
         this.area.content.style.verticalAlign = align;
     }
 
-    addImage(src) {
-        var img = new PrintImage(this)
-        img.src = src;
-        this.area.content.appendChild(img);
-        img.setAttribute('draggable', true);
+    addImage(options = {}) {
 
-        onclick = () => {
-            console.log("selected" , img);
-        this.selectImage(img);
-    }
+        options.page = this;
+
+        var img = new PrintImage(options);  // custom image 
+
+        //img.src = options.src;
+
+        //img = Object.assign(img, options);
+
+
+        this.area.content.appendChild(img);
+
+        //this.page.selectImage(img);
+
+        img.onload = () => {
+                 
+        }
+
+        img.onclick = function(){
+            console.log(this);
+            this.page.selectImage(this);
+        }
+
         // this.extendImg(img , {
         //     scale: "auto",
         //     mode: "fill",
         //     degree: 0,
         // });
+
+        img.ondrag = (item) => {
+            const selectedItem = item.target,
+                list = selectedItem.parentNode,
+                x = event.clientX,
+                y = event.clientY;
+    
+            selectedItem.classList.add('drag-sort-active');
+            let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
+    
+            if (list === swapItem.parentNode) {
+                swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
+                list.insertBefore(selectedItem, swapItem);
+            }
+        }
+    
+        img.ondragend = (item) => {
+            item.target.classList.remove('drag-sort-active');
+        }
+
+        img.duplicate = () => {
+            // var imgClon = img.cloneNode(true) // Clona the element with its classes
+            // imgClon.classList.remove("selected");
+            // this.area.content.insertBefore(imgClon, img);
+
+            // imgClon.onclick = function(){
+            //     console.log(img);
+            //     this.page.selectImage(img);
+            // }
+
+            // this.extendImg(imgClon , {
+            //     scale : img.scale,
+            //     mode : img.mode,
+            //     degree : img.degree,
+            //     orientation : img.orientation,
+            //     flip : img.flip,
+            // });
+        }
+        
     }
+
+
 
     
 
@@ -107,6 +164,7 @@ class Page {
     }
 
     unSelectImage() {
+      //  console.log(this.selectedImage);
         if (this.selectedImage != null)
             this.selectedImage.classList.remove("selected");
         this.selectedImage = null;

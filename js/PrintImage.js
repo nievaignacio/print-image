@@ -1,43 +1,30 @@
 class PrintImage extends Image {
     
-    scale = "auto"
-    mode = "fill"
+    scale = "auto";
+    mode = "fill";
     degree = 0;
     orientation = 0;
     flip = 1;
 
-    constructor(page){
+    constructor(options){
         super();
-        this.page = page;
-    }
-
-    onload = () => {
-        this.setScale(this.scale);
-    }
-
-    // onclick = () => {
-    //     console.log("click", this.page);
-    //     this.page.selectImage(this);
-    // }
-
-    ondrag = (item) => {
-        const selectedItem = item.target,
-            list = selectedItem.parentNode,
-            x = event.clientX,
-            y = event.clientY;
-
-        selectedItem.classList.add('drag-sort-active');
-        let swapItem = document.elementFromPoint(x, y) === null ? selectedItem : document.elementFromPoint(x, y);
-
-        if (list === swapItem.parentNode) {
-            swapItem = swapItem !== selectedItem.nextSibling ? swapItem : swapItem.nextSibling;
-            list.insertBefore(selectedItem, swapItem);
+        this.src = options.src;
+        this.page = options.page;  
+    
+        
+        this.setMode(options.mode || "fill");
+        this.setScale(options.scale || "auto");
+        if(options.scale == "Custom"){
+            this.resize(options.width, options.height);
         }
+        if(options.degree && options.degree > 0){
+            this.resize(options.height, options.width);
+            this.rotate(options.degree);
+        } 
+
     }
 
-    ondragend = (item) => {
-        item.target.classList.remove('drag-sort-active');
-    }
+    
 
     resize = (w, h) => {
         // console.log("resize ",this.src);
@@ -101,30 +88,17 @@ class PrintImage extends Image {
         this.style.objectFit = this.mode;
     }
 
-    duplicate = () => {
-        // console.log("duplicate ",this);
-        var imgClon = this.cloneNode(true) // Clona the element with its classes
-        imgClon.classList.remove("selected");
-        this.area.content.insertBefore(imgClon, img);
-        this.extendImg(imgClon , {
-            scale : this.scale,
-            mode : this.mode,
-            degree : this.degree,
-            orientation : this.orientation,
-            flip : this.flip,
-        });
-    }
 
     getWidth = () => { // return width at cm
         if (this.orientation)
-            return (this.offsetHeight / (document.querySelector("#page").offsetHeight / this.page.size.height * 10)).toFixed(1);
-        return (this.offsetWidth / (document.querySelector("#page").offsetWidth / this.page.size.width * 10)).toFixed(1);
+            return (this.offsetHeight / (document.querySelector(this.page.selector).offsetHeight / this.page.size.height * 10)).toFixed(1);
+        return (this.offsetWidth / (document.querySelector(this.page.selector).offsetWidth / this.page.size.width * 10)).toFixed(1);
     }
 
     getHeight = () => { // return height at cm
         if (this.orientation)
-            return (this.offsetWidth / (document.querySelector("#page").offsetWidth / this.page.size.width * 10)).toFixed(1);
-        return (this.offsetHeight / (document.querySelector("#page").offsetHeight / this.page.size.height * 10)).toFixed(1);
+            return (this.offsetWidth / (document.querySelector(this.page.selector).offsetWidth / this.page.size.width * 10)).toFixed(1);
+        return (this.offsetHeight / (document.querySelector(this.page.selector).offsetHeight / this.page.size.height * 10)).toFixed(1);
     }
 
     autoHeight = () => { // adjust height
@@ -136,7 +110,7 @@ class PrintImage extends Image {
 
         if (this.orientation) {
 
-            this.style.width = this.area.offsetHeight + "px";
+            this.style.width = this.page.area.offsetHeight + "px";
             this.style.height = "auto"
 
             var marginV = (this.width - this.height) / 2;
@@ -170,7 +144,6 @@ class PrintImage extends Image {
 
 
     delete = () => { // delete
-        this.unSelectImage();
         this.remove();
     }
 
@@ -188,6 +161,8 @@ class PrintImage extends Image {
         this.style.margin = marginV + 'px ' + marginH + 'px ';
 
         this.degree += degree;
+        if(this.degree == 360) this.degree = 0;
+
         this.style.transform = 'rotate(' + this.degree + 'deg)';
 
         if (this.scale == "auto") {
@@ -200,3 +175,5 @@ class PrintImage extends Image {
         this.style.transform = 'scale(' + this.flip + ')';
     }
 }
+
+customElements.define("print-image", PrintImage, {extends: 'img'}); 
