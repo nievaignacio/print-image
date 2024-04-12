@@ -43,6 +43,11 @@ document.querySelector('#align').onclick = (e) => {
 
 }
 
+//spacing
+// document.querySelector('#spacing').addEventListener('change', function () {
+//     page.setSpacing(this.value * 10);
+// });
+
 
 //add image
 
@@ -94,8 +99,8 @@ document.onclick = (e) => {
 
 // resize
 
-document.querySelector('#width').onkeyup = (event) => {
-    if (event.keyCode === 13) {
+document.querySelector('#width').addEventListener('change', function () {
+   // if (event.keyCode === 13 || event.keyCode === 9) {
         w = document.querySelector('#width').value;
         h = document.querySelector('#height').value;
         page.selectedImage.resize(w, h);
@@ -103,11 +108,11 @@ document.querySelector('#width').onkeyup = (event) => {
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
         document.querySelector('#scale').value = "Custom";
-    }
-}
+   // }
+});
 
-document.querySelector('#height').onkeyup = (event) => {
-    if (event.keyCode === 13) {
+document.querySelector('#height').addEventListener('change', function () {
+  //  if (event.keyCode === 13 || event.keyCode === 9) {
         w = document.querySelector('#width').value;
         h = document.querySelector('#height').value;
         page.selectedImage.resize(w, h);
@@ -115,8 +120,8 @@ document.querySelector('#height').onkeyup = (event) => {
         document.querySelector('#width').value = page.selectedImage.getWidth();
         document.querySelector('#height').value = page.selectedImage.getHeight();
         document.querySelector('#scale').value = "Custom";
-    }
-}
+  //  }
+});
 
 document.querySelector('#scale').addEventListener('change', function () {
     page.selectedImage.setScale(this.value);
@@ -124,8 +129,6 @@ document.querySelector('#scale').addEventListener('change', function () {
     document.querySelector('#height').value = page.selectedImage.getHeight();
     document.querySelector('#scale').value = page.selectedImage.scale;
 });
-
-//rotate
 
 document.querySelector('#mode').addEventListener('change', function () {
     page.selectedImage.setMode(this.value);
