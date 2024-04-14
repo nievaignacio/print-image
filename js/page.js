@@ -103,6 +103,7 @@ class Page {
         img.degree = options.degree || 0;
         img.orientation = options.orientation || 0;
         img.flip = options.flip || 1;
+        
 
         img.onload = () => {
             img.setScale(options.scale);
