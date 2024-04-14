@@ -77,6 +77,7 @@ header label{
 
 #image-toolbar {
     display: none;
+    background-color: #eee;
 }
 
 
@@ -100,6 +101,10 @@ header label{
 
 #align td.selected{
     background-color: red;
+}
+
+input{
+    width: 80px;
 }
 
 button,
@@ -164,7 +169,8 @@ img {
 }
 
 img.selected {
-     border: 3px  solid greenyellow; 
+     outline: 3px  solid greenyellow; 
+     outline-offset: -3px;
 }
 
 /* .selected::after{
@@ -228,7 +234,7 @@ img.selected {
     }
 
     img.selected {
-        border: none;
+        outline: none;
         opacity: 1;
     }
 }
