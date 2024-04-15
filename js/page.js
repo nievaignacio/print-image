@@ -145,6 +145,10 @@ class Page {
             img.style.margin = marginV + 'px ' + marginH + 'px ';
         }
 
+        img.toggleDimensions = () => {
+            img.resize(img.getHeight(), img.getWidth());
+        }
+
         img.resize = (w, h) => {
             // console.log("resize ",img.src);
             
@@ -155,9 +159,7 @@ class Page {
                 console.log(result);
                 img.style.objectPosition =  (result.topCrop.x/wo * 100) +"% "+ (result.topCrop.y/ho * 100)+"%";
             });
-
-            
-
+          
 
             if(img.getWidth() != w && img.getHeight() != h){
                 img.keep_ratio  = false;

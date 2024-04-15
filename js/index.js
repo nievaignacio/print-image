@@ -147,6 +147,11 @@ document.querySelector('#mode').addEventListener('change', function () {
     document.querySelector('#mode').value = page.selectedImage.mode;
 });
 
+document.querySelector('#orientation').onclick = () => {
+    page.selectedImage.toggleDimensions();
+    document.querySelector('#width').value = page.selectedImage.getWidth();
+    document.querySelector('#height').value = page.selectedImage.getHeight();
+}
 
 //rotate
 
