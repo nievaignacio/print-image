@@ -10,28 +10,21 @@ class Page {
 
         console.log(this.pageSizes.find(size => size.size == "A4"));
 
-        this.selector = ref;
+        this.element = document.querySelector(ref);
 
         this.pageStyles = document.createElement('style');
-        //this.pageStyles.textContent ="@media print { @page { size: A4; margin: 10%; }}";
         document.getElementsByTagName('HEAD')[0].appendChild(this.pageStyles);
 
-        this.area = document.createElement("div");
-
-
-        // this.setMargin(.1);
-
-        this.area.id = "area";
-        document.querySelector(ref).appendChild(this.area);
-
-        this.area.content = document.createElement("div");
-        this.area.content.id = "content";
-        this.area.appendChild(this.area.content);
-
-        
+        this.render();
 
         this.setSize("A4");
 
+    }
+
+    render(){
+        this.element.innerHTML = '<div id="area"><div id="content"></div></div>';
+        this.element.area = document.getElementById("area");
+        this.element.area.content = document.getElementById("content");
     }
 
     setSpacing(value){
@@ -41,18 +34,18 @@ class Page {
 
     zoom() {
         var zoom = this.pxTocm(window.innerHeight - 160) / this.size.height;
-        document.querySelector(this.selector).style.zoom = zoom;
+        this.element.style.zoom = zoom;
     }
 
     pxTocm(px) {
-        var hpx = document.querySelector(this.selector).offsetHeight;
+        var hpx = this.element.offsetHeight;
         return (px / (hpx / this.size.height)).toFixed(1);
     };
 
     setSize(size) {
         this.size = this.pageSizes.find(s => s.size == size);
-        document.querySelector(this.selector).style.width = this.size.width + "mm";
-        document.querySelector(this.selector).style.height = this.size.height + "mm";
+        this.element.style.width = this.size.width + "mm";
+        this.element.style.height = this.size.height + "mm";
         this.setMargin(.1);
         this.zoom()
     }
@@ -66,28 +59,28 @@ class Page {
 
         console.log(marginH, marginV);
 
-        this.area.style.margin = marginV + "mm " + marginH + "mm";
+        this.element.area.style.margin = marginV + "mm " + marginH + "mm";
 
-        this.area.style.width = (this.size.width - (marginH * 2)) + "mm";
-        this.area.style.height = (this.size.height - (marginV * 2)) + "mm";
+        this.element.area.style.width = (this.size.width - (marginH * 2)) + "mm";
+        this.element.area.style.height = (this.size.height - (marginV * 2)) + "mm";
 
-        this.area.style.lineHeight = (this.size.height - (marginV * 2)) + "mm";
+        this.element.area.style.lineHeight = (this.size.height - (marginV * 2)) + "mm";
 
         this.pageStyles.textContent = "@media print { @page { size: " + this.size.size + " !important; margin:" + marginV + "mm " + marginH + "mm }}";
     }
 
     setAlign(align) {
-        this.area.style.textAlign = align;
+        this.element.area.style.textAlign = align;
     }
 
     setVerticalAlign(align) {
-        this.area.content.style.verticalAlign = align;
+        this.element.area.content.style.verticalAlign = align;
     }
 
     addImage(src) {
         var img = document.createElement("img");
         img.src = src;
-        this.area.content.appendChild(img);
+        this.element.area.content.appendChild(img);
         img.setAttribute('draggable', true);
         this.extendImg(img , {
             scale: "auto",
@@ -103,12 +96,11 @@ class Page {
         img.degree = options.degree || 0;
         img.orientation = options.orientation || 0;
         img.flip = options.flip || 1;
+        img.keep_ratio = options.keep_ratio || true;
         
 
         img.onload = () => {
             img.setScale(options.scale);
-            //this.setMargin();
-           // img.setMargin();
         }
 
         img.onclick = () => {
@@ -150,6 +142,15 @@ class Page {
 
         img.resize = (w, h) => {
             // console.log("resize ",img.src);
+
+            if(img.getWidth() != w && img.getHeight() != h){
+                img.keep_ratio  = false;
+            }else if(img.getWidth() != w && img.keep_ratio){
+                h = (img.getHeight()/img.getWidth()) * w;
+            }else if(img.getHeight() != h && img.keep_ratio){
+                w = (img.getHeight()/img.getWidth()) * w;
+            }
+
             if (img.orientation) {
                 img.style.width = h * 10 + "mm";
                 img.style.height = w * 10 + "mm";
@@ -206,7 +207,7 @@ class Page {
             // console.log("duplicate ",this);
             var imgClon = img.cloneNode(true) // Clona the element with its classes
             imgClon.classList.remove("selected");
-            this.area.content.insertBefore(imgClon, img);
+            this.element.area.content.insertBefore(imgClon, img);
             this.extendImg(imgClon , {
                 scale : img.scale,
                 mode : img.mode,
@@ -218,14 +219,14 @@ class Page {
 
         img.getWidth = () => { // return width at cm
             if (img.orientation)
-                return (img.offsetHeight / (document.querySelector(this.selector).offsetHeight / this.size.height * 10)).toFixed(1);
-            return (img.offsetWidth / (document.querySelector(this.selector).offsetWidth / this.size.width * 10)).toFixed(1);
+                return (img.offsetHeight / (this.element.offsetHeight / this.size.height * 10)).toFixed(1);
+            return (img.offsetWidth / (this.element.offsetWidth / this.size.width * 10)).toFixed(1);
         }
 
         img.getHeight = () => { // return height at cm
             if (img.orientation)
-                return (img.offsetWidth / (document.querySelector(this.selector).offsetWidth / this.size.width * 10)).toFixed(1);
-            return (img.offsetHeight / (document.querySelector(this.selector).offsetHeight / this.size.height * 10)).toFixed(1);
+                return (img.offsetWidth / (this.element.offsetWidth / this.size.width * 10)).toFixed(1);
+            return (img.offsetHeight / (this.element.offsetHeight / this.size.height * 10)).toFixed(1);
         }
 
         img.autoHeight = () => { // adjust height
@@ -237,7 +238,7 @@ class Page {
 
             if (img.orientation) {
 
-                img.style.width = this.area.offsetHeight + "px";
+                img.style.width = this.element.area.offsetHeight + "px";
                 img.style.height = "auto"
 
             } else {
@@ -298,7 +299,7 @@ class Page {
         this.selectedImage.classList.add("selected");
 
         const event = new Event("selected");
-        this.area.dispatchEvent(event);
+        this.element.dispatchEvent(event);
     }
 
     unSelectImage() {

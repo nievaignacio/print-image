@@ -75,7 +75,7 @@ document.querySelector('#page').ondrop = (e) => {
 
 //select & unselect
 
-page.area.addEventListener('selected', function () {  // custom event
+page.element.addEventListener('selected', function () {  // custom event
     //console.log("select");
     if (page.selectedImage) {
         document.querySelector('#image-toolbar').setAttribute("style", "display:block;");
@@ -98,6 +98,15 @@ document.onclick = (e) => {
 
 
 // resize
+
+document.querySelector('#keep').addEventListener('change', function () {
+    console.log(document.querySelector('#keep').checked);
+        for(i in document.querySelector('#keep').checked){
+            document.querySelector('#keep').checked[i].checked^=1;
+        }
+
+        page.selectedImage.keep_ratio = document.querySelector('#keep').checked;
+ });
 
 document.querySelector('#width').addEventListener('change', function () {
    // if (event.keyCode === 13 || event.keyCode === 9) {
@@ -128,6 +137,7 @@ document.querySelector('#scale').addEventListener('change', function () {
     document.querySelector('#width').value = page.selectedImage.getWidth();
     document.querySelector('#height').value = page.selectedImage.getHeight();
     document.querySelector('#scale').value = page.selectedImage.scale;
+    page.selectedImage.keep_ratio = document.querySelector('#keep').checked = false;
 });
 
 document.querySelector('#mode').addEventListener('change', function () {
