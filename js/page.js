@@ -15,17 +15,14 @@ class Page {
         this.pageStyles = document.createElement('style');
         document.getElementsByTagName('HEAD')[0].appendChild(this.pageStyles);
 
-        this.render();
+        this.element.innerHTML = '<div id="area"><div id="content"></div></div>';
+        this.element.area = document.getElementById("area");
+        this.element.area.content = document.getElementById("content");
 
         this.setSize("A4");
 
     }
 
-    render(){
-        this.element.innerHTML = '<div id="area"><div id="content"></div></div>';
-        this.element.area = document.getElementById("area");
-        this.element.area.content = document.getElementById("content");
-    }
 
     setSpacing(value){
         // this.area.content.querySelector("img").style.border = value +"mm solid #fff;";
@@ -86,6 +83,7 @@ class Page {
             scale: "auto",
             mode: "fill",
             degree: 0,
+            keep_ratio: true,
         });
     }
 
@@ -148,7 +146,7 @@ class Page {
             }else if(img.getWidth() != w && img.keep_ratio){
                 h = (img.getHeight()/img.getWidth()) * w;
             }else if(img.getHeight() != h && img.keep_ratio){
-                w = (img.getHeight()/img.getWidth()) * w;
+                w = (img.getWidth()/img.getHeight()) * h;
             }
 
             if (img.orientation) {
@@ -214,6 +212,7 @@ class Page {
                 degree : img.degree,
                 orientation : img.orientation,
                 flip : img.flip,
+                keep_ratio : img.keep_ratio,
             });
         }
 
@@ -310,4 +309,7 @@ class Page {
 
 
 }
+
+
+
 

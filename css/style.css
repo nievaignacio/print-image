@@ -103,7 +103,7 @@ header label{
     background-color: red;
 }
 
-input{
+input[type="number"] {
     width: 80px;
 }
 
